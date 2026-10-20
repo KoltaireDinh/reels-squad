@@ -8,7 +8,7 @@ $tools = Join-Path $Dir 'tools'
 New-Item -ItemType Directory -Force -Path $tools, (Join-Path $tools 'bin'), (Join-Path $tools 'vendor'), (Join-Path $Dir 'channels'), (Join-Path $Dir 'secrets') | Out-Null
 
 # Tool sources live in the skill; copy them so node resolves tools/node_modules.
-foreach ($f in 'render.mjs', 'extract.py', 'ig_fetch.py', 'ig_collect.js', 'ig_watch.js') {
+foreach ($f in 'render.mjs', 'extract.py', 'ig_fetch.py', 'ig_collect.js', 'ig_watch.js', 'vo.py') {
     Copy-Item -Force (Join-Path $PSScriptRoot $f) (Join-Path $tools $f)
 }
 $master = Join-Path $Dir 'MASTER_PROMPT.md'

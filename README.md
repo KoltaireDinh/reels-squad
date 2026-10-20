@@ -53,6 +53,7 @@ scripts/extract.py        frames, contact sheets, scene cuts, transcript
 scripts/ig_collect.js     collect reel URLs + views from a profile page (run in Chrome)
 scripts/ig_fetch.py       index / download reels
 scripts/ig_watch.js       frame-accurate video watcher for Chrome screenshots
+scripts/vo.py             Vietnamese (or any) voiceover + word-timed subtitles, checks gaps <= 1s
 templates/MASTER_PROMPT.md  starting master prompt
 ```
 

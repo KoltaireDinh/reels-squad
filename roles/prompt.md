@@ -25,6 +25,13 @@ Theo đúng khung trong `MASTER_PROMPT.md` (đọc nó trước). Bắt buộc c
 - **Tiêu chí giống gốc**: 5–10 điểm kiểm được, để manager QA.
 Viết bằng tiếng Việt, chữ trên màn hình giữ nguyên ngôn ngữ gốc trừ khi manager nói khác.
 
+## Kịch bản tiếng Việt (Bước 4 của manager)
+TASK kịch bản VI → viết `prompts/<id>.vi.md` (kịch bản + bảng chữ trên màn hình EN → VI) và `builds/<id>/vi/script.json` (`{"voice":"vi-VN-NamMinhNeural","rate":"+8%","lines":[{"id","t","text"}]}`).
+- Viết như người Việt kể chuyện cuốn hút, không dịch máy: hook mạnh 0–2s, câu ngắn, nối ý liền mạch, đúng beat (lời nói về cảnh nào thì nằm trong cảnh đó), từ ngữ đời thường, không sến.
+- Khoảng lặng giữa 2 câu ≤ 1.0s, câu đầu bắt đầu ≤ 0.5s, lời kết trước khi video hết. Chạy `python -I tools/vo.py builds/<id>/vi/script.json --out builds/<id>/vi/vo --duration <s>`; còn dòng FAIL thì sửa câu (thêm/bớt ý) hoặc dời `t` rồi chạy lại tới khi sạch. Chỉ dùng 1 giọng `vi-VN-NamMinhNeural`.
+- Chữ trên màn hình (hook, chú thích, nhãn, FUN FACT, CTA) → bản VI ngắn gọn vừa khung, giữ con số.
+- Được sửa thêm: `prompts/<id>.vi.md`, `builds/<id>/vi/script.json`, `builds/<id>/vi/vo/**`.
+
 ## Fine-tune master prompt
 Sau mỗi video được DUYỆT (manager báo), hoặc khi feedback của user lộ ra một lỗi lặp lại: cập nhật `MASTER_PROMPT.md` — thêm/sửa quy tắc, mục bắt buộc, lỗi hay gặp. Giữ ngắn gọn; ghi ngày + lý do mỗi thay đổi ở mục "Nhật ký tinh chỉnh" cuối file.
 

@@ -74,7 +74,7 @@ User đưa `@handle` / link kênh / link reel. Manager:
 5. Coder DONE (có `out/<id>/v1.mp4`) → **S — Styler**: `TASK S1 <id>`, chủ build = styler.
 6. Styler DONE (có `vN.mp4`) → **manager tự QA** trước khi đưa user: chạy `python -I tools/extract.py out/<id>/vN.mp4 --out <tmp> --every 1`, xem sheet so với sheet video gốc: đúng 1080×1920, đủ thời lượng, không frame trắng/đen, chữ không tràn khỏi safe zone (trên 250px, dưới 420px), **có chuyển cảnh riêng ở mọi điểm chuyển cảnh + effect nhấn ở các khoảnh khắc chính** (báo cáo styler phải có bảng chuyển cảnh/effect — thiếu là trả về, user đã phản hồi điều này). Lỗi → trả về chủ build, không làm phiền user.
 
-**Sở thích đã biết của user (áp dụng mọi video, không chờ user nhắc lại):** chuyển cảnh phù hợp + effect hợp lý ở mọi video; biến dạng cơ thể liền thân; mọi bản render xuất ra thư mục kênh. Khi user cho feedback có tính chung (không chỉ riêng 1 video) → ghi ngay vào skill (role brief + `templates/MASTER_PROMPT.md`) và vào mục này, rồi áp cho các video đang làm.
+**Sở thích đã biết của user (áp dụng mọi video, không chờ user nhắc lại):** chuyển cảnh phù hợp + effect hợp lý ở mọi video; biến dạng cơ thể liền thân; mọi bản render xuất ra thư mục kênh; sau khi xong hết bản gốc thì làm bản tiếng Việt (Bước 4: 1 giọng duy nhất, subtitle, khoảng lặng ≤ 1s, folder `Tiếng Việt version`). Khi user cho feedback có tính chung (không chỉ riêng 1 video) → ghi ngay vào skill (role brief + `templates/MASTER_PROMPT.md`) và vào mục này, rồi áp cho các video đang làm.
 7. QA đạt → mở bản trong thư mục kênh cho user (`Start-Process`), gửi: đường dẫn, 3-5 dòng đã làm gì, so với gốc giống/khác ở đâu. Hỏi đúng 1 câu: "Feedback?"
 
 Trong lúc C/S đang làm video 1, manager có thể giao P cho video 2 (khác thư mục → chạy song song được).
@@ -89,6 +89,15 @@ User feedback → ghi nguyên văn vào `feedback/<id>.md` (vòng N) → tách t
 | "lấy video khác", "đổi kênh" | researcher |
 
 Nhiều ý → làm tuần tự theo thứ tự prompt → coder → styler, mỗi bước 1 chủ build. Xong → QA lại → đưa `v(N+1).mp4`. Khi user duyệt ("ok", "duyệt", "được"): ghi DUYỆT vào PLAN, nhờ prompt rút bài học vào `MASTER_PROMPT.md` chung (để video sau làm tốt hơn), rồi sang video kế tiếp.
+
+## Bước 4 — Bản tiếng Việt (sau khi TẤT CẢ video bản gốc đã xong)
+User yêu cầu với mọi kênh: mỗi video có thêm 1 bản tiếng Việt — kịch bản lồng tiếng Việt mới (không dịch máy), subtitle, lồng tiếng.
+- **Giọng: DUY NHẤT `vi-VN-NamMinhNeural` cho mọi video** (không đổi giọng giữa các video/câu). Tốc độ chọn 1 lần cho cả kênh (mặc định `+8%`), chỉ chỉnh nhẹ ±5% nếu 1 câu không vừa.
+- **Kịch bản** (prompt viết `prompts/<id>.vi.md` + `builds/<id>/vi/script.json`): bám câu chuyện + beat, giọng kể trôi chảy, tự nhiên kiểu người Việt kể chuyện, có hook mạnh 0–2s, câu ngắn gọn, nối ý liền mạch. **Khoảng lặng giữa 2 câu ≤ 1.0s** (kể cả đầu video ≤ 0.5s), lời không vượt thời lượng video. Chữ trên màn hình (hook, chú thích, nhãn, FUN FACT, CTA) cũng chuyển sang tiếng Việt.
+- **Lồng tiếng + kiểm nhịp**: `python -I tools/vo.py builds/<id>/vi/script.json --out builds/<id>/vi/vo --duration <s>` → `vo.wav`, `subs.json` (mốc từng câu + từng từ), `report.txt`. Exit 1 / dòng FAIL (khoảng lặng > 1s, tràn thời lượng) → prompt sửa câu hoặc mốc rồi chạy lại cho tới khi sạch. Không được để FAIL.
+- **Build tiếng Việt** (coder, rồi styler polish): cùng build, thêm chế độ `?lang=vi` hoặc `builds/<id>/vi/index.html` dùng lại scene; chữ lấy từ bảng i18n; **subtitle burn-in** đọc `subs.json`, hiện theo câu (từ đang đọc được nhấn màu), font có dấu tiếng Việt đầy đủ (kiểm "ỗ ữ ặ ẫ"), nằm trong safe zone và KHÔNG đè lower third/hook; audio = nhạc + SFX (duck nhạc −8 dB khi có lời) + `vo.wav`, loudnorm −14 LUFS. Chuyển cảnh/effect giữ như bản gốc.
+- **Xuất**: `<Dir>/<handle>/Tiếng Việt version/v<N> - <Tên video tiếng Việt>.mp4` (cùng quy tắc `[Version] - Tên video`; version đếm riêng cho bản tiếng Việt).
+- **QA manager**: nghe/kiểm `report.txt` sạch, subtitle khớp lời (so `subs.json` với frame), không chữ đè chữ, dấu tiếng Việt hiển thị đúng.
 
 ## Khuôn TASK (manager → agent)
 ```

@@ -36,6 +36,13 @@ window.REEL = {
 3. `python -I tools/extract.py out/<id>/v<N>.mp4 --out out/<id>/check_v<N> --every 1 --no-whisper` → xem sheet, đối chiếu "Tiêu chí giống gốc" trong prompt. Lệch → sửa rồi render lại trước khi báo.
 Renderer in "page errors" → phải sửa hết.
 
+## Bản tiếng Việt (Bước 4 của manager)
+Đầu vào: `prompts/<id>.vi.md` (bảng chữ EN → VI), `builds/<id>/vi/vo/{vo.wav, subs.json}` (prompt đã chạy `tools/vo.py`, report sạch).
+- Dùng lại scene của build gốc (không copy-paste lệch): thêm bảng i18n và chế độ `?lang=vi` (hoặc `builds/<id>/vi/index.html` import scene gốc). Mọi chữ trên màn hình lấy từ bảng VI.
+- Subtitle burn-in từ `subs.json`: hiện theo câu, từ đang đọc nhấn màu theo `words`, 1–2 dòng, font có đủ dấu tiếng Việt (local, kiểm "ỗ ữ ặ ẫ ợ"), trong safe zone, KHÔNG đè lower third/hook — chọn dải trống trong layout, ghi vị trí vào báo cáo.
+- Audio: nhạc + SFX của bản gốc, duck nhạc −8 dB khi có lời (theo `subs.json`), cộng `vo.wav`, loudnorm I=−14. Chuyển cảnh/effect giữ nguyên.
+- Render như bản gốc; xuất `<workspace>/<handle>/Tiếng Việt version/v<N> - <Tên video tiếng Việt>.mp4` (version đếm riêng cho bản VI).
+
 ## Xuất video (bắt buộc, mọi bản)
 Render xong `out/<id>/v<N>.mp4` → copy ngay sang `<workspace>/<handle>/v<N> - <Tên video>.mp4` (tên video = tiêu đề/hook ở mục 0 của prompt, bỏ ký tự `\/:*?"<>|`; vd `observerstalk/v1 - What if men gave birth.mp4`). Ghi đường dẫn file xuất trong báo cáo.
 

@@ -18,6 +18,15 @@ Xem video gốc, HTML hiện tại và bản render mới nhất, rồi chỉnh 
 - Chữ: font đậm dễ đọc trên điện thoại, có đổ bóng/viền để nổi trên nền, nằm trong safe zone (tránh 250px trên, 420px dưới). Font phải nằm local trong `builds/<id>/assets/` (không tải từ mạng lúc render).
 - Hoàn thiện: anti-alias, pixel ratio 1 (khung đã là 1080×1920), vignette/grain nhẹ nếu hợp, không frame nào trống hoặc đứng im quá lâu.
 
+## Chuyển cảnh & effect — BẮT BUỘC mọi video (feedback user: "nên thêm chuyển cảnh phù hợp, effect hợp lý")
+Video không có chuyển cảnh/effect = chưa xong, kể cả khi gốc chỉ cắt cứng. "Phù hợp, hợp lý" = mỗi cái có lý do theo câu chuyện/nhịp, không phô diễn, không che chữ.
+- **Chuyển cảnh**: mỗi cặp cảnh 1 kiểu riêng gắn với hành động/ý nghĩa, nằm TRONG cửa sổ thời gian có sẵn (không đổi mốc beat). Kho gợi ý: khảm/lật mảnh tam giác low-poly theo hướng chuyển động, whip-pan có motion streak, zoom-through qua cửa/kính/vật sáng, match cut (vật ở cảnh A biến thành vật ở cảnh B), lật/bay thẻ đáp đúng phách, mở bằng hình đa giác từ tâm. Gốc cắt cứng + chớp trắng → GIỮ cảm giác cắt nhanh nhưng nâng chớp: mảnh tam giác vỡ/loé, flash có shape đa giác, punch-in 1–2 khung, rung nhẹ.
+- **Glitch/loop** của gốc giữ nguyên.
+- **Effect** (nhẹ, đúng nhịp nhạc/beat): pop + squash + vòng sóng đa giác khi icon/biển/đạo cụ xuất hiện; camera shake ngắn ở va chạm/âm thanh mạnh; hạt bụi/tam giác trôi, vệt nắng trong cảnh tĩnh; flicker/bloom cho đèn neon/màn hình; số đếm nảy (scale 1.2→1 easeOutBack) mỗi lần đổi, đếm nhanh thì rung + vệt mờ; vòng "nhói"/pulse quanh vùng đau/cơ quan; mồ hôi/hơi nóng/dấu giận theo cảm xúc; hạt sáng/lấp lánh ở khoảnh khắc payoff.
+- **SFX** khớp từng chuyển cảnh/effect (whoosh, thud, shimmer, zap, pop), thêm vào `audio/cues.json` + `make_audio.py`, loudnorm lại mix.
+- Mọi chu kỳ effect phải khớp loop nếu video loop. Chữ HTML không rung theo camera shake.
+- Báo cáo PHẢI có bảng: chuyển cảnh (mốc, kiểu, lý do) + effect (mốc, kiểu) + SFX mới.
+
 ## Cách làm
 1. Liệt kê 5–10 điểm cần nâng (so với gốc và với chuẩn trên) trước khi sửa.
 2. Sửa; xem nhanh bằng `node tools/render.mjs builds/<id>/index.html --stills out/<id>/stills_v<N> --every 1`, Read ảnh, lặp tới khi hài lòng.

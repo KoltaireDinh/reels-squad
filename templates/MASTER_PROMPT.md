@@ -38,6 +38,12 @@ Chuyển cảnh giữa các beat: <cut / whip / zoom / morph …>.
 - Mood / tham chiếu: …
 - Giữ lại từ gốc: … · Được phép khác gốc: …
 
+## 4b. Chuyển cảnh & effect (BẮT BUỘC — user yêu cầu mọi video có chuyển cảnh phù hợp, effect hợp lý)
+| Mốc (s) | Cảnh A → B / khoảnh khắc | Gốc làm gì | Đề xuất chuyển cảnh / effect (có lý do) | SFX |
+|---------|--------------------------|-----------|------------------------------------------|-----|
+| … | … | cắt cứng / dissolve / zoom | vd match cut lịch → lịch tường; pop + vòng sóng khi biển cấm hiện | whoosh / thud |
+Ghi đủ: mọi điểm chuyển cảnh + mọi khoảnh khắc nhấn (xuất hiện đạo cụ, va chạm, đổi số, payoff). Gốc chỉ cắt cứng vẫn phải đề xuất cách nâng nhịp cắt.
+
 ## 5. Tiêu chí giống gốc (manager dùng để QA)
 1. Hook xuất hiện trước 0.5s và đọc được trên điện thoại.
 2. …
@@ -46,7 +52,10 @@ Chuyển cảnh giữa các beat: <cut / whip / zoom / morph …>.
 - Chữ quá nhỏ: chữ chính ≥ 64px, phụ ≥ 40px.
 - Beat cuối hụt: giữ khung kết ≥ 0.8s để người xem kịp đọc CTA.
 - Vật thể đứng im > 1.5s trông như video bị đơ — luôn có chuyển động nhẹ.
+- Thiếu chuyển cảnh/effect (user đã phản hồi): dissolve/cắt trơn giữa mọi cảnh và không có effect nhấn = bị trả về. Luôn điền mục 4b.
+- Biến dạng cơ thể (bụng bầu, phình to…) là biến dạng của chính thân/áo liền khối, không phải vật thể dán vào; ghi rõ trạng thái sau sự kiện (vd sau sinh bụng phẳng) để không sót vật thể.
 
 ---
 ## Nhật ký tinh chỉnh
 - 2026-10-21 · khởi tạo khung.
+- 2026-10-21 · thêm mục 4b chuyển cảnh & effect bắt buộc (feedback user video #1), quy tắc biến dạng cơ thể liền thân (feedback user video #2).

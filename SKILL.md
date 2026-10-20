@@ -72,7 +72,9 @@ User đưa `@handle` / link kênh / link reel. Manager:
 3. Researcher DONE → manager chọn video (mặc định #1 theo xếp hạng, hoặc cái user muốn) → **P — Prompt**: `TASK P1 <id>`.
 4. Prompt DONE → đọc `prompts/<id>.md` thấy đủ mục → **C — Coder**: `TASK C1 <id>`, chủ build = coder.
 5. Coder DONE (có `out/<id>/v1.mp4`) → **S — Styler**: `TASK S1 <id>`, chủ build = styler.
-6. Styler DONE (có `vN.mp4`) → **manager tự QA** trước khi đưa user: chạy `python -I tools/extract.py out/<id>/vN.mp4 --out <tmp> --every 1`, xem sheet so với sheet video gốc: đúng 1080×1920, đủ thời lượng, không frame trắng/đen, chữ không tràn khỏi safe zone (trên 250px, dưới 420px). Lỗi → trả về chủ build, không làm phiền user.
+6. Styler DONE (có `vN.mp4`) → **manager tự QA** trước khi đưa user: chạy `python -I tools/extract.py out/<id>/vN.mp4 --out <tmp> --every 1`, xem sheet so với sheet video gốc: đúng 1080×1920, đủ thời lượng, không frame trắng/đen, chữ không tràn khỏi safe zone (trên 250px, dưới 420px), **có chuyển cảnh riêng ở mọi điểm chuyển cảnh + effect nhấn ở các khoảnh khắc chính** (báo cáo styler phải có bảng chuyển cảnh/effect — thiếu là trả về, user đã phản hồi điều này). Lỗi → trả về chủ build, không làm phiền user.
+
+**Sở thích đã biết của user (áp dụng mọi video, không chờ user nhắc lại):** chuyển cảnh phù hợp + effect hợp lý ở mọi video; biến dạng cơ thể liền thân; mọi bản render xuất ra thư mục kênh. Khi user cho feedback có tính chung (không chỉ riêng 1 video) → ghi ngay vào skill (role brief + `templates/MASTER_PROMPT.md`) và vào mục này, rồi áp cho các video đang làm.
 7. QA đạt → mở bản trong thư mục kênh cho user (`Start-Process`), gửi: đường dẫn, 3-5 dòng đã làm gì, so với gốc giống/khác ở đâu. Hỏi đúng 1 câu: "Feedback?"
 
 Trong lúc C/S đang làm video 1, manager có thể giao P cho video 2 (khác thư mục → chạy song song được).

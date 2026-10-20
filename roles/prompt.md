@@ -20,6 +20,7 @@ Theo đúng khung trong `MASTER_PROMPT.md` (đọc nó trước). Bắt buộc c
 - **Câu chuyện**: hook 0–2s, diễn biến, payoff, CTA — 1 đoạn.
 - **Timeline từng beat** với thời gian chính xác (giây, 2 chữ số thập phân): cảnh gì, vật thể gì ở đâu (toạ độ trên khung 1080×1920), chuyển động gì (từ → đến, easing), chữ trên màn hình nguyên văn + font/cỡ/màu/vị trí, âm thanh/nhịp beat trùng với cái gì.
 - **Hướng visual cho styler**: bảng màu (hex), ánh sáng, mức độ low poly (số mặt, flat shading), camera, texture, mood. Gốc không phải low poly → vẫn chuyển sang low poly nhưng giữ bố cục, màu chủ đạo, cảm xúc.
+- **Chuyển cảnh & effect (mục 4b, BẮT BUỘC — user yêu cầu)**: bảng mọi điểm chuyển cảnh + khoảnh khắc nhấn: gốc làm gì → đề xuất chuyển cảnh/effect phù hợp (có lý do theo câu chuyện) + SFX. Gốc chỉ cắt cứng vẫn phải đề xuất cách nâng.
 - **Ràng buộc kỹ thuật**: 1080×1920, 30fps, thời lượng, safe zone (chữ không đặt ở 250px trên và 420px dưới), audio dùng gì.
 - **Tiêu chí giống gốc**: 5–10 điểm kiểm được, để manager QA.
 Viết bằng tiếng Việt, chữ trên màn hình giữ nguyên ngôn ngữ gốc trừ khi manager nói khác.

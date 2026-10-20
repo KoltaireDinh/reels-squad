@@ -55,6 +55,15 @@ Ghi đủ: mọi điểm chuyển cảnh + mọi khoảnh khắc nhấn (xuất 
 - Thiếu chuyển cảnh/effect (user đã phản hồi): dissolve/cắt trơn giữa mọi cảnh và không có effect nhấn = bị trả về. Luôn điền mục 4b.
 - Biến dạng cơ thể (bụng bầu, phình to…) là biến dạng của chính thân/áo liền khối, không phải vật thể dán vào; ghi rõ trạng thái sau sự kiện (vd sau sinh bụng phẳng) để không sót vật thể.
 
+## 7. Kịch bản tiếng Việt (Bước 4 — viết ở `prompts/<id>.vi.md`)
+- 1 giọng duy nhất `vi-VN-NamMinhNeural`, rate cố định cho cả kênh (+8%).
+- Hook là câu hỏi TRỌN Ý ("… thì sao?"), khớp chữ hook trên màn hình bản VI.
+- Tránh dấu "?" / dấu phẩy thừa giữa câu: NamMinh ngắt dài ở đó → dễ vượt khoảng lặng 1s.
+- Khoảng lặng ≤ 1.0s, câu đầu ≤ 0.5s; video loop thì tính cả khoảng lặng từ câu cuối vòng về câu đầu, và câu cuối nên nối ý được về câu đầu.
+- Nhạc tắt ở đoạn kết → lời đọc trên nền đó, không duck; đặt từ khoá ("im bặt"…) rơi đúng khoảnh khắc.
+- Đơn vị kiểu quen thuộc: "4h 15p", "3 ngày 2h", số nghìn có dấu chấm "8.760", thập phân dấu phẩy "1,4 L"; số trong ô cố định (tabular-nums) để không nhảy chỗ.
+- Chữ kết cảm thán dùng từ Việt tự nhiên ("Phù." thay "Ahh.").
+
 ---
 ## Nhật ký tinh chỉnh
 - 2026-10-21 · khởi tạo khung.

@@ -1,0 +1,52 @@
+# MASTER PROMPT — tái hiện 1 Reel bằng code (low poly)
+
+Khung chung cho mọi video. Agent `prompt` copy khung này vào `channels/<handle>/prompts/<id>.md`, điền đủ mọi mục cho video cụ thể, và tinh chỉnh chính file này khi rút ra bài học mới.
+
+---
+
+## 0. Tóm tắt
+- Nguồn: <url> · kênh @<handle> · <view> view · <thời lượng>s
+- Câu chuyện 1 câu: …
+- Vì sao video này viral (hook / cảm xúc / thông tin): …
+
+## 1. Ràng buộc kỹ thuật
+- Khung 1080×1920, 30fps, thời lượng <t>s (khớp gốc ±0.2s).
+- Safe zone: chữ và chi tiết quan trọng nằm trong y ∈ [250, 1500], x ∈ [60, 1020].
+- Trang theo hợp đồng `window.REEL` (xem brief coder); mọi chuyển động là hàm của t.
+- Audio: voiceover (giọng edge-tts: …, tốc độ …) + SFX theo cue. Nhịp beat chính: <các mốc giây>.
+- Lời thoại (nguyên văn, theo beat): …
+- SFX cue: <t>s whoosh · <t>s pop · …
+
+## 2. Câu chuyện
+- Hook (0–2s): …
+- Diễn biến: …
+- Payoff: …
+- CTA / kết: …
+
+## 3. Timeline từng beat
+| # | t0–t1 (s) | Cảnh / vật thể (vị trí px) | Chuyển động (từ → đến, easing) | Chữ trên màn hình (nguyên văn · font · cỡ · màu · vị trí) | Âm thanh / nhịp |
+|---|-----------|----------------------------|-------------------------------|-----------------------------------------------------------|-----------------|
+| 1 | 0.00–1.20 | … | … | … | … |
+
+Chuyển cảnh giữa các beat: <cut / whip / zoom / morph …>.
+
+## 4. Hướng visual (cho styler)
+- Bảng màu (hex): nền …, chính …, phụ …, nhấn …, chữ …
+- Low poly: mức chi tiết …, flat shading, vật thể chính dựng từ …
+- Ánh sáng: key … (hướng, màu), fill …, bóng …
+- Camera: góc …, chuyển động …
+- Mood / tham chiếu: …
+- Giữ lại từ gốc: … · Được phép khác gốc: …
+
+## 5. Tiêu chí giống gốc (manager dùng để QA)
+1. Hook xuất hiện trước 0.5s và đọc được trên điện thoại.
+2. …
+
+## 6. Lỗi thường gặp (bổ sung dần)
+- Chữ quá nhỏ: chữ chính ≥ 64px, phụ ≥ 40px.
+- Beat cuối hụt: giữ khung kết ≥ 0.8s để người xem kịp đọc CTA.
+- Vật thể đứng im > 1.5s trông như video bị đơ — luôn có chuyển động nhẹ.
+
+---
+## Nhật ký tinh chỉnh
+- 2026-10-21 · khởi tạo khung.

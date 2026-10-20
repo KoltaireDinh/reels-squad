@@ -39,7 +39,7 @@ Renderer in "page errors" → phải sửa hết.
 ## Bản tiếng Việt (Bước 4 của manager)
 Đầu vào: `prompts/<id>.vi.md` (bảng chữ EN → VI), `builds/<id>/vi/vo/{vo.wav, subs.json}` (prompt đã chạy `tools/vo.py`, report sạch).
 - Dùng lại scene của build gốc (không copy-paste lệch): thêm bảng i18n và chế độ `?lang=vi` (hoặc `builds/<id>/vi/index.html` import scene gốc). Mọi chữ trên màn hình lấy từ bảng VI.
-- Subtitle burn-in từ `subs.json`: hiện theo câu, từ đang đọc nhấn màu theo `words`, 1–2 dòng, font có đủ dấu tiếng Việt (local, kiểm "ỗ ữ ặ ẫ ợ"), trong safe zone, KHÔNG đè lower third/hook — chọn dải trống trong layout, ghi vị trí vào báo cáo.
+- Subtitle burn-in từ `subs.json`: hiện theo câu, từ đang đọc nhấn màu theo `words`, 1–2 dòng ngắt theo cụm nghĩa, font có đủ dấu tiếng Việt (local, kiểm "ỗ ữ ặ ẫ ợ"; Cormorant Garamond đặt dấu lệch → dùng EB Garamond), trong safe zone (y ≤ 1500), KHÔNG đè lower third/hook và KHÔNG BAO GIỜ che mặt/đầu nhân vật (chiếu bbox đầu từ camera mỗi khung, tự đổi dải, chuyển mượt). Câu trùng nội dung với chữ lớn đang hiện (hook, CTA) → ẩn subtitle câu đó. Hạ tầng dùng chung ở `channels/<handle>/builds/_vi/` (vi.js, vi.css, mix_vi.py).
 - Audio: nhạc + SFX của bản gốc, duck nhạc −8 dB khi có lời (theo `subs.json`), cộng `vo.wav`, loudnorm I=−14. Chuyển cảnh/effect giữ nguyên.
 - Render như bản gốc; xuất `<workspace>/<handle>/Tiếng Việt version/v<N> - <Tên video tiếng Việt>.mp4` (version đếm riêng cho bản VI).
 

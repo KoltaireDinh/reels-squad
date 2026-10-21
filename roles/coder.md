@@ -43,6 +43,7 @@ Renderer in "page errors" → phải sửa hết.
   - 1 dải phụ đề duy nhất ở phần dưới: tâm y ≈ 1390, đáy box ≤ 1500, rộng ≤ 920. Không nhảy vị trí giữa các câu.
   - Dải này phải được GIỮ TRỐNG. Ở `?lang=vi`, lower third, chú thích, nhãn và số dời lên trên dải (y ≤ 1250). Bố cục máy (styler) giữ mặt/đầu và hành động chính ở trên y 1250.
   - vi.js vẫn chiếu bbox đầu + `avoidZones` nhưng để KIỂM TRA: có va chạm thì sửa bố cục. Chỉ dùng dải dự phòng cố định ở trên khi thật sự không tránh được, và ghi mốc đó trong báo cáo.
+  - Lower third/CAP/FUN FACT của bản VI cũng không được đè mặt, cằm, tay hay hành động chính: chạy checker trên cả các khối chữ đó, mục tiêu 0 va chạm. Nếu va chạm thì chỉnh khung máy VI theo từng shot (`VI_FRAME`).
   - Dễ đọc: chữ trắng 48–52px semibold, viền tối 2–3px, box tối mờ 0.5–0.6, từ đang đọc nhấn màu. Chỉ ẩn subtitle khi câu trùng chữ lớn hook/CTA đang hiện. Câu trùng chú thích CAP → KHÔNG ẩn hàng loạt mà báo manager để prompt viết lại lời đọc (user yêu cầu có subtitle; mọi câu trừ hook/CTA phải có subtitle). Subtitle tối đa 2 dòng. Hook màn hình bản VI là câu hỏi trọn ý, khớp lời đọc. Hạ tầng dùng chung ở `channels/<handle>/builds/_vi/` (vi.js, vi.css, mix_vi.py).
 - Audio: nhạc + SFX của bản gốc, duck nhạc −8 dB khi có lời (theo `subs.json`), cộng `vo.wav`, loudnorm I=−14. Chuyển cảnh/effect giữ nguyên.
 - Render như bản gốc; xuất `<workspace>/<handle>/Tiếng Việt version/v<N> - <Tên video tiếng Việt>.mp4` (version đếm riêng cho bản VI).

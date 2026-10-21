@@ -9,6 +9,7 @@ param(
     [string]$Dir = 'E:\aff\reels',
     [ValidateSet('plan', 'researcher', 'prompt', 'coder', 'styler')][string[]]$Only = @(),
     [string]$PermissionMode = '',
+    [string]$SquadId = '',
     [switch]$DryRun
 )
 
@@ -23,12 +24,41 @@ if (-not (Test-Path -LiteralPath $planFile)) {
 $scripts = $PSScriptRoot -replace '\\', '/'
 $dirArg = $Dir -replace '\\', '/'
 
+# Pixel Office (optional desktop pet): one squad id per full launch; -Only reuses the manager's latest one.
+# Never blocks or breaks the launch.
+try {
+    $poHome = if ($env:PIXEL_OFFICE_HOME) { $env:PIXEL_OFFICE_HOME } else { 'E:\aff\pixel-office' }
+    $poSquads = Join-Path $env:LOCALAPPDATA 'PixelOffice\squads'
+    $replace = $Only.Count -eq 0
+    if (-not $SquadId -and -not $replace -and (Test-Path -LiteralPath $poSquads)) {
+        $latest = Get-ChildItem -LiteralPath $poSquads -Filter '*.json' | Sort-Object LastWriteTime -Descending |
+            ForEach-Object { Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json } |
+            Where-Object { $_.managerName -eq $Manager } | Select-Object -First 1
+        if ($latest) { $SquadId = $latest.squad }
+    }
+    $isNew = -not $SquadId
+    if ($isNew) { $SquadId = 'sq-' + (Get-Date -Format 'yyyyMMddHHmmss') }
+    if (-not $DryRun -and (Test-Path -LiteralPath (Join-Path $poHome 'hook\notify.js'))) {
+        if ($isNew) {
+            New-Item -ItemType Directory -Force -Path $poSquads | Out-Null
+            $json = @{ squad = $SquadId; managerName = $Manager; managerSession = $null; createdAt = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds() } | ConvertTo-Json -Compress
+            [IO.File]::WriteAllText((Join-Path $poSquads "$SquadId.json"), $json)
+        }
+        $notifyArgs = @("`"$poHome\hook\notify.js`"", 'squad-start', '--squad', $SquadId, '--manager', $Manager)
+        if ($replace) { $notifyArgs += '--replace' }
+        Start-Process -WindowStyle Hidden -FilePath 'node' -ArgumentList $notifyArgs | Out-Null
+    }
+} catch {
+    Write-Host "Pixel Office: skipped ($($_.Exception.Message))"
+}
+
 function PaneCmd([string]$role) {
     if ($role -eq 'plan') {
         return "powershell -NoProfile -ExecutionPolicy Bypass -File `"$scripts/plan-view.ps1`" -File `"$dirArg/PLAN.md`""
     }
     $cmd = "powershell -NoProfile -ExecutionPolicy Bypass -File `"$scripts/child.ps1`" -Role $role -Dir `"$dirArg`" -Manager $Manager"
     if ($PermissionMode) { $cmd += " -PermissionMode $PermissionMode" }
+    if ($SquadId) { $cmd += " -SquadId $SquadId" }
     return $cmd
 }
 

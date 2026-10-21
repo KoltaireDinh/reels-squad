@@ -5,8 +5,12 @@ param(
     [Parameter(Mandatory)][ValidateSet('researcher', 'prompt', 'coder', 'styler')][string]$Role,
     [Parameter(Mandatory)][string]$Dir,
     [Parameter(Mandatory)][string]$Manager,
-    [string]$PermissionMode = ''
+    [string]$PermissionMode = '',
+    [string]$SquadId = ''
 )
+
+# Pixel Office: the hook reads these to know which house and which character this session is.
+if ($SquadId) { $env:PIXEL_OFFICE_SQUAD = $SquadId; $env:PIXEL_OFFICE_ROLE = $Role }
 
 $roleFile = Join-Path (Split-Path -Parent $PSScriptRoot) "roles\$Role.md"
 

@@ -30,20 +30,28 @@ try {
     $poHome = if ($env:PIXEL_OFFICE_HOME) { $env:PIXEL_OFFICE_HOME } else { 'E:\aff\pixel-office' }
     $poSquads = Join-Path $env:LOCALAPPDATA 'PixelOffice\squads'
     $replace = $Only.Count -eq 0
+    $nowMs = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+    $reuse = $null
     if (-not $SquadId -and -not $replace -and (Test-Path -LiteralPath $poSquads)) {
-        $latest = Get-ChildItem -LiteralPath $poSquads -Filter '*.json' | Sort-Object LastWriteTime -Descending |
-            ForEach-Object { Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json } |
-            Where-Object { $_.managerName -eq $Manager } | Select-Object -First 1
-        if ($latest) { $SquadId = $latest.squad }
+        # -Only: same manager name first; after a manager restart (new name) fall back to the newest squad of the last day.
+        $all = @(Get-ChildItem -LiteralPath $poSquads -Filter '*.json' | Sort-Object LastWriteTime -Descending | ForEach-Object {
+            try { Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json } catch { $null }
+        } | Where-Object { $_ -and $_.squad })
+        $reuse = $all | Where-Object { $_.managerName -eq $Manager } | Select-Object -First 1
+        if (-not $reuse) { $reuse = $all | Where-Object { $nowMs - $_.createdAt -lt 86400000 } | Select-Object -First 1 }
+        if ($reuse) { $SquadId = $reuse.squad }
     }
     $isNew = -not $SquadId
-    if ($isNew) { $SquadId = 'sq-' + (Get-Date -Format 'yyyyMMddHHmmss') }
+    if ($isNew) { $SquadId = 'sq-' + (Get-Date -Format 'yyyyMMddHHmmssfff') }
     if (-not $DryRun -and (Test-Path -LiteralPath (Join-Path $poHome 'hook\notify.js'))) {
+        New-Item -ItemType Directory -Force -Path $poSquads | Out-Null
         if ($isNew) {
-            New-Item -ItemType Directory -Force -Path $poSquads | Out-Null
-            $json = @{ squad = $SquadId; managerName = $Manager; managerSession = $null; createdAt = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds() } | ConvertTo-Json -Compress
-            [IO.File]::WriteAllText((Join-Path $poSquads "$SquadId.json"), $json)
+            $obj = @{ squad = $SquadId; managerName = $Manager; managerSession = $null; createdAt = $nowMs }
+        } else {
+            # Let the (possibly restarted) manager session claim this squad again.
+            $obj = @{ squad = $SquadId; managerName = $Manager; managerSession = $null; createdAt = $reuse.createdAt; claimableAt = $nowMs }
         }
+        if ($isNew -or $reuse) { [IO.File]::WriteAllText((Join-Path $poSquads "$SquadId.json"), ($obj | ConvertTo-Json -Compress)) }
         $notifyArgs = @("`"$poHome\hook\notify.js`"", 'squad-start', '--squad', $SquadId, '--manager', $Manager)
         if ($replace) { $notifyArgs += '--replace' }
         Start-Process -WindowStyle Hidden -FilePath 'node' -ArgumentList $notifyArgs | Out-Null

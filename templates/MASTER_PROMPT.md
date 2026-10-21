@@ -65,6 +65,7 @@ Ghi đủ: mọi điểm chuyển cảnh + mọi khoảnh khắc nhấn (xuất 
 - Khoảng lặng ≤ 1.0s, câu đầu ≤ 0.5s; video loop thì tính cả khoảng lặng từ câu cuối vòng về câu đầu, và câu cuối nên nối ý được về câu đầu.
 - Nhạc tắt ở đoạn kết → lời đọc trên nền đó, không duck; đặt từ khoá ("im bặt"…) rơi đúng khoảnh khắc.
 - Đơn vị kiểu quen thuộc: "4h 15p", "3 ngày 2h", số nghìn có dấu chấm "8.760", thập phân dấu phẩy "1,4 L"; số trong ô cố định (tabular-nums) để không nhảy chỗ.
+- Phụ đề ở vị trí cố định (tâm y ≈ 1390, vùng 1260–1500) và vùng này luôn trống: chú thích/lower third bản VI đặt trên y 1250; shot list giữ mặt và hành động chính ở trên y 1250.
 - Chữ kết cảm thán dùng từ Việt tự nhiên ("Phù." thay "Ahh.").
 
 ---

@@ -36,6 +36,8 @@ Low poly không có nghĩa là đơn sơ. Mỗi khung phải trông như 1 cản
    - Addon three.js (`RoomEnvironment`, `EffectComposer`, `UnrealBloomPass`, `BokehPass`…) lấy từ `tools/node_modules/three/examples/jsm/`, copy vào `builds/<id>/assets/vendor/` và sửa import về `three.module.js` local. Không sửa `tools/`.
    - Máy ít RAM: shadow + post-processing nặng hơn, nên render đoạn ngắn hơn (≤ 6–8s). Bị "WebGL context lost" thì giảm số pass hoặc kích thước buffer bloom, không bỏ bóng/độ bóng.
 
+**Dải phụ đề (cho bản tiếng Việt)**: phụ đề có vị trí cố định, tâm y ≈ 1390, vùng y 1260–1500. Khi dựng góc máy, giữ mặt/đầu nhân vật và hành động chính ở trên y 1250 để phụ đề không bao giờ đè lên chúng. Ở `?lang=vi`, lower third, chú thích và nhãn dời lên trên dải đó. Bản gốc giữ bố cục như cũ.
+
 ## Chuyển cảnh & effect — BẮT BUỘC mọi video (feedback user: "nên thêm chuyển cảnh phù hợp, effect hợp lý")
 Video không có chuyển cảnh/effect = chưa xong, kể cả khi gốc chỉ cắt cứng. "Phù hợp, hợp lý" = mỗi cái có lý do theo câu chuyện/nhịp, không phô diễn, không che chữ.
 - **Chuyển cảnh**: mỗi cặp cảnh 1 kiểu riêng gắn với hành động/ý nghĩa, nằm TRONG cửa sổ thời gian có sẵn (không đổi mốc beat). Kho gợi ý: khảm/lật mảnh tam giác low-poly theo hướng chuyển động, whip-pan có motion streak, zoom-through qua cửa/kính/vật sáng, match cut (vật ở cảnh A biến thành vật ở cảnh B), lật/bay thẻ đáp đúng phách, mở bằng hình đa giác từ tâm. Gốc cắt cứng + chớp trắng → GIỮ cảm giác cắt nhanh nhưng nâng chớp: mảnh tam giác vỡ/loé, flash có shape đa giác, punch-in 1–2 khung, rung nhẹ.

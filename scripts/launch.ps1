@@ -27,7 +27,11 @@ $dirArg = $Dir -replace '\\', '/'
 # Pixel Office (optional desktop pet): one squad id per full launch; -Only reuses the manager's latest one.
 # Never blocks or breaks the launch.
 try {
-    $poHome = if ($env:PIXEL_OFFICE_HOME) { $env:PIXEL_OFFICE_HOME } else { 'E:\aff\pixel-office' }
+    # Installed app (Pixel Office Setup.exe) keeps its hook scripts here; otherwise use the dev checkout.
+    $poInstalled = Join-Path $env:LOCALAPPDATA 'PixelOffice\pixel-office'
+    $poHome = if ($env:PIXEL_OFFICE_HOME) { $env:PIXEL_OFFICE_HOME }
+              elseif (Test-Path -LiteralPath (Join-Path $poInstalled 'hook\notify.js')) { $poInstalled }
+              else { 'E:\aff\pixel-office' }
     $poSquads = Join-Path $env:LOCALAPPDATA 'PixelOffice\squads'
     $replace = $Only.Count -eq 0
     $nowMs = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()

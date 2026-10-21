@@ -50,7 +50,7 @@ Video không có chuyển cảnh/effect = chưa xong, kể cả khi gốc chỉ 
 ## Cách làm
 1. Liệt kê 5–10 điểm cần nâng (so với gốc và với chuẩn trên) trước khi sửa, kèm **shot list**: mỗi beat có cỡ cảnh, góc máy, chuyển động camera, ánh sáng/mood, biểu cảm nhân vật.
 2. Sửa; xem nhanh bằng `node tools/render.mjs builds/<id>/index.html --stills out/<id>/stills_v<N> --every 1`, Read ảnh, lặp tới khi hài lòng.
-3. Render `out/<id>/v<N>.mp4` (N = số bản tiếp theo) như coder; extract sheet kiểm lại toàn bộ.
+3. (Giữ `tools/.render.lock` như brief coder — chỉ 1 render toàn squad.) Render `out/<id>/v<N>.mp4` (N = số bản tiếp theo) như coder; extract sheet kiểm lại toàn bộ.
 4. Giữ nguyên `window.REEL`, mảng beat và thời gian beat — đổi timing chỉ khi TASK yêu cầu.
 
 ## Xuất video (bắt buộc, mọi bản)

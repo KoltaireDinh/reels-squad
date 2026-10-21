@@ -27,6 +27,8 @@ Chrome (claude-in-chrome) dùng để xem video GỐC trên Instagram (`/p/<id>/
 
 Coder và styler sửa cùng thư mục build → **mỗi build chỉ có 1 chủ tại 1 thời điểm**, manager ghi rõ trong TASK. Không bao giờ giao cùng 1 build cho 2 agent song song.
 
+**Chỉ 1 render tại 1 thời điểm cho cả squad** (máy ít RAM: 2 render song song → OOM/kill). Lock `<Dir>/tools/.render.lock`: lock trống → ghi tên mình rồi render (stills hay mp4 đều tính); xong → xoá lock và nhắn agent kia "render rảnh"; lock đang giữ → làm việc không render và chờ tin nhắn. Coder/styler làm gối đầu khác video vẫn được, chỉ render là xếp hàng.
+
 ## Workspace (mặc định `E:\aff\reels`, đổi bằng `-Dir`)
 ```
 <Dir>/

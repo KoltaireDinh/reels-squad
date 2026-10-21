@@ -32,7 +32,7 @@ window.REEL = {
 ## Render + tự kiểm
 1. Xem nhanh: `node tools/render.mjs builds/<id>/index.html --stills out/<id>/stills_v<N> --every 1` → Read vài ảnh, so với frame gốc cùng thời điểm.
 2. Render: `node tools/render.mjs channels/<handle>/builds/<id>/index.html channels/<handle>/out/<id>/v<N>.mp4` (N = số bản tiếp theo; có audio thì `--audio <file>`).
-   Chạy FOREGROUND (timeout 600000), KHÔNG `run_in_background` — shell nền bị Claude Code giết khi máy thiếu RAM. Máy thiếu RAM → đoạn ≤10s; renderer báo "WebGL context lost" → render lại đoạn đó nhỏ hơn. Render > 9 phút → chia đoạn `--from/--to` (mốc là bội số của 1/fps), mỗi đoạn 1 lệnh, rồi ghép bằng ffmpeg concat (`-c:v copy`) và mux audio sau cùng. Áp dụng y hệt cho styler.
+   Trước mọi lệnh render.mjs: giữ lock `tools/.render.lock` (trống → ghi tên mình; đang giữ → chờ tin "render rảnh"); xong xoá lock và nhắn agent kia "render rảnh". Chạy FOREGROUND (timeout 600000), KHÔNG `run_in_background` — shell nền bị Claude Code giết khi máy thiếu RAM. Máy thiếu RAM → đoạn ≤10s; renderer báo "WebGL context lost" → render lại đoạn đó nhỏ hơn. Render > 9 phút → chia đoạn `--from/--to` (mốc là bội số của 1/fps), mỗi đoạn 1 lệnh, rồi ghép bằng ffmpeg concat (`-c:v copy`) và mux audio sau cùng. Áp dụng y hệt cho styler.
 3. `python -I tools/extract.py out/<id>/v<N>.mp4 --out out/<id>/check_v<N> --every 1 --no-whisper` → xem sheet, đối chiếu "Tiêu chí giống gốc" trong prompt. Lệch → sửa rồi render lại trước khi báo.
 Renderer in "page errors" → phải sửa hết.
 

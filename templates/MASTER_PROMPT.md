@@ -37,6 +37,8 @@ Chuyển cảnh giữa các beat: <cut / whip / zoom / morph …>.
 - Camera: góc …, chuyển động …
 - Mood / tham chiếu: …
 - Giữ lại từ gốc: … · Được phép khác gốc: …
+- **Điện ảnh (BẮT BUỘC, user: "dramatic và cinematic là key")**: shot list từng beat gồm cỡ cảnh (toàn/trung/cận/đặc tả), góc máy (thấp/cao/dutch/qua vai) và chuyển động camera, kèm lý do; bối cảnh từng cảnh (không gian, đạo cụ kể chuyện, nguồn sáng); biểu cảm và body language nhân vật theo beat; ánh sáng và màu theo cảm xúc; khoảnh khắc payoff.
+- **Chi tiết vật liệu (BẮT BUỘC)**: mỗi vật chính ghi chất liệu, độ bóng (roughness/metalness), bóng đổ và phản xạ.
 
 ## 4b. Chuyển cảnh & effect (BẮT BUỘC — user yêu cầu mọi video có chuyển cảnh phù hợp, effect hợp lý)
 | Mốc (s) | Cảnh A → B / khoảnh khắc | Gốc làm gì | Đề xuất chuyển cảnh / effect (có lý do) | SFX |
@@ -53,6 +55,7 @@ Ghi đủ: mọi điểm chuyển cảnh + mọi khoảnh khắc nhấn (xuất 
 - Beat cuối hụt: giữ khung kết ≥ 0.8s để người xem kịp đọc CTA.
 - Vật thể đứng im > 1.5s trông như video bị đơ — luôn có chuyển động nhẹ.
 - Thiếu chuyển cảnh/effect (user đã phản hồi): dissolve/cắt trơn giữa mọi cảnh và không có effect nhấn = bị trả về. Luôn điền mục 4b.
+- Hình phẳng, thiếu điện ảnh (user đã phản hồi): camera 1 góc chính diện, nhân vật trên nền trống, mặt không biểu cảm, vật không bóng đổ hoặc không độ bóng đều bị trả về.
 - Biến dạng cơ thể (bụng bầu, phình to…) là biến dạng của chính thân/áo liền khối, không phải vật thể dán vào; ghi rõ trạng thái sau sự kiện (vd sau sinh bụng phẳng) để không sót vật thể.
 
 ## 7. Kịch bản tiếng Việt (Bước 4 — viết ở `prompts/<id>.vi.md`)
@@ -68,3 +71,4 @@ Ghi đủ: mọi điểm chuyển cảnh + mọi khoảnh khắc nhấn (xuất 
 ## Nhật ký tinh chỉnh
 - 2026-10-21 · khởi tạo khung.
 - 2026-10-21 · thêm mục 4b chuyển cảnh & effect bắt buộc (feedback user video #1), quy tắc biến dạng cơ thể liền thân (feedback user video #2).
+- 2026-10-21 · thêm chuẩn điện ảnh (góc quay, mật độ chi tiết, bối cảnh, biểu cảm, dramatic) và chi tiết vật liệu bắt buộc (feedback user cho styler).
